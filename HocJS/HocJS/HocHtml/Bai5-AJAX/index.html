@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p{
+            display: inline-block;
+            margin-right: 10px;
+            line-height: 10%;
+            width: 200px;
+        }
+        li button{
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    <input type="text" id="new-item">
+    <button id="addBtn">Add</button>
+    <ul id="ul-list">
+    </ul>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var url = 'http://localhost:9081/todos';
+        axios.get(url).then(function(res){
+            var items = res.data;
+            console.log(items);
+            render(items);
+        });
+        var btnOnclick = document.getElementById('addBtn');
+        btnOnclick.addEventListener('click', addItem);
+
+        function addItem(){
+            var input = document.getElementById('new-item');
+            var newItem = input.value;
+            action.push(newItem);
+            render();
+            input.value = '';
+        }
+    
+        function render(items){
+            var ulList = document.getElementById('ul-list');
+            var content = items.map(function(item){
+                return '<li>' + item.content + '</li>';
+            });
+            ulList.innerHTML = content.join('');
+        }
+    
+        
+    </script>
+</body>
+</html>

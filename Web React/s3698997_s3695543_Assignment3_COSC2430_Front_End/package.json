@@ -1,0 +1,43 @@
+{
+  "name": "react-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "author": "Sin",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "history": "^4.7.2",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery-form-validator": "^2.3.77",
+    "jw-react-pagination": "^1.0.7",
+    "prop-types": "^15.6.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-form-validate": "^1.0.3",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-validation": "^3.0.7",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "short-id": "0.1.0-1",
+    "validator": "^10.7.1",
+    "webpack-dev-server": "^2.9.3"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "style-loader": "^0.22.1",
+    "webpack": "^3.12.0",
+    "webpack-command": "^0.4.1"
+  }
+}

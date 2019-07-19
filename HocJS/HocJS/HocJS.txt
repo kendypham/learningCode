@@ -1,0 +1,247 @@
+﻿//escape a character
+var str = 'Hello, I\'m Truong.';
+
+//undefined khai bao ma chua gan gia tri gi
+var a;
+console.log(a);
+
+//null la gia tri rong
+a = null
+console.log(a);
+
+
+//reference type
+var a = {
+    key : value
+};
+
+//EX:
+//camelCase cach dat ten bien
+var myDog = {
+    name : 'Ki',
+    weight : 5.2,
+    isAlive : true
+};
+
+
+//use double quotes in double quotes
+var myStr = "I am a \"double quotes\" string inside \"double quotes\" "
+
+//Truy xuat key object
+var myDog = {
+	name : 'Ki',
+	age : 5
+};
+
+myDog.name   //myDog['name']
+
+/******
+CODE OUTPUT
+\'	single quote
+\"	double quote
+\\	backslash
+\n	newline
+\r	carriage return
+\t	tab
+\b	backspace
+\f	form feed
+**********/
+
+
+//String Immutability
+var myStr = "Hello";
+
+myStr[0] = "J"; ---> can't not change --> error
+
+//Function
+function calculateTriangleSquare(a, h){
+	return a * h / 2;
+}
+
+calculateTriangleSquare(10, 5);
+
+
+//Object methods
+var myDog = {
+	name : 'Ki',
+  weight : 5,
+	bark : function() {
+		console.log('Gau Gau');
+	},
+  eat : function(bone) {
+    this.weight = this.weight + bone.weight;
+    return this;
+  }
+};
+
+var bone = {weight : 10};
+myDog.eat(bone);
+console.log(myDog.weight);
+myDog.bark();
+
+
+//for syntax
+for(init; condition; final-expression){
+	statement;
+}
+
+var dogs = [
+	{name : 'Ki', age : 5},
+	{name : 'Lu', age : 6},
+	{name : 'Muc', age : 7}
+];
+
+// for(var i = 0; i < 3; i++){
+// 	console.log(dogs[i].name, dogs[i].age);
+// }
+
+// for(var dog of dogs){
+// 	console.log(dog.name, dog.age);
+// }
+
+for(var key in dogs){
+	console.log(key, dogs[key]);
+}
+
+var myDog = {
+	name : 'Ki',
+	age : 5
+};
+//myDog.name  // myDog['name']
+for(var i in myDog){
+	console.log(i, myDog[i]);
+}
+
+//array method
+//a.concat(b)
+//a.push(b)   Add to the end of an Array
+//a.pop()	  Remove from the end of an Array
+//a.shift()    Remove from the front of an Array
+//a.unshift() Add to the front of an Array
+
+//Dùng function như tham số (callback)
+var homework = {
+	doHomeWork : function(onFinish){
+		console.log('Do homework.......');
+		onFinish();
+	}
+};
+
+var noti = function(){
+	console.log('Finish.....');
+};
+
+homework.doHomeWork(noti);
+
+homework.doHomeWork(function(){
+	console.log('Finish2222.............');
+});
+
+//array.map
+//syntax
+arr.map(function(item){
+	//transform
+	return newValue;
+});
+
+//ex
+var numbers = [1,2,3,4];
+var squaredNumbers = numbers.map(function(x){
+	return x*x;		
+});
+
+console.log(squaredNumbers);
+
+//array.filter
+//syntax
+arr.map(function(item){
+	//filter
+	return newValue; //true or false
+});
+
+//array.reduce
+arr.reduce(function(item1, item2){
+	//calculation
+	return x;
+});
+
+var numbers = [1,2,3,4];
+var sum = numbers.reduce(function(a, b){
+	return a + b;
+});
+
+console.log(sum);
+
+var orders = [
+	{ name : 'A', quantity : 2, unitPrice : 100},
+	{ name : 'B', quantity : 1, unitPrice : 200},
+	{ name : 'C', quantity : 1, unitPrice : 200},
+];
+
+var sum = orders.reduce(function(a,b){
+	return a + (b.quantity * b.unitPrice);
+}, 0);
+
+console.log(sum);
+
+//array.sort
+var numbers = [2,1,5,4,9,6];
+
+var ascendingNumbers = numbers.sort(function(a,b){
+	return a - b;
+});
+
+console.log(ascendingNumbers); //[ 1, 2, 4, 5, 6, 9 ]
+
+var descendingNumbers = numbers.sort(function(a,b){
+	return b - a;
+});
+
+console.log(descendingNumbers); //[ 9, 6, 5, 4, 2, 1 ]
+
+//new keyword
+//su dung constructor function de tao object
+
+
+//prototype
+function Cat(color){
+	this.color = color;
+}
+//prototype duoc chia se cho cac object duoc tao boi tu khoa new
+Cat.prototype.sleep = function(){
+	console.log('Sleeping...');
+}
+
+var m1 = new Cat('white');
+var m2 = new Cat('black');
+
+m1.sleep();
+m2.sleep();
+
+
+//another  EX
+function Mouse(color){
+	this.color = color;
+	this.dead = false
+}
+
+
+Mouse.prototype.die = function() {
+	this.dead = true;
+}
+
+function Cat(){
+	this.stomach = [];
+}
+
+Cat.prototype.eat = function(mouse){
+	this.stomach.push(mouse);
+	mouse.die();
+}
+
+var m1 = new Mouse('white');
+var m2 = new Mouse('black');
+var cat = new Cat();
+cat.eat(m1);
+cat.eat(m2);
+console.log(cat);
