@@ -1,0 +1,48 @@
+<div class="container mt-3">
+  <div class="col-md order-md-1">
+    <h4 class="mb-3">Shipping Carrier</h4>
+    <form class="needs-validation" #carrierForm="ngForm" (ngSubmit)="continueCheckout(carrierForm)">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <div class="card">
+            <div class="card-header">
+              Payment Method
+            </div>
+            <div class="card-body" *ngFor="let pay of paymentMethod; let index = index">
+              <label>
+                <input type="radio" name="payCheck" [(ngModel)]="payCheck" [value]="paymentKey[index]"
+                  (change)="onPayCheck($event)"> {{pay}}
+              </label>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3" *ngFor="let item of carrierServiceItem">
+          <div class="card text-center">
+            <div class="card-header">
+              {{carrier[0].name}} <img [src]="carrier[0].logo" width="50" height="50">
+            </div>
+            <div class="card-body">
+              <label class="card-title">
+                  <input type="radio" name="isCheck" [(ngModel)]="isChecked" [value]="item.id"
+                  (change)="onCheck($event)">
+                  <b> {{item.name}}</b>
+              </label>
+              <p class="card-text">Shipping Fee :{{item.shipFee | number:'1.0-0'}} VND</p>
+
+            </div>
+            <div class="card-footer text-muted" *ngIf="item.name == 'Giao hàng tiết kiệm'">
+              Delivery in 15 days
+            </div>
+            <div class="card-footer text-muted" *ngIf="item.name == 'Giao hàng nhanh'">
+              Delivery in 7 days
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mb-4">
+      <button class="btn btn-orange btn-lg btn-block" type="submit">Continue to checkout</button>
+    </form>
+  </div>

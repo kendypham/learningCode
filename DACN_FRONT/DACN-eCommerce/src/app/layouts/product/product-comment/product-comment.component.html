@@ -1,0 +1,51 @@
+<div class="comment-wrapper">
+  <div class="comment-header">
+    <h5 class="header-cell">Product comments</h5>
+    <div class="header-cell">
+      <button class="btn btn-orange" (click)="openCommentClick()"  *ngIf="!isCommented">Add your comment</button>
+    </div>
+  </div>
+  <div class="comment-container" *ngIf="addComment">
+    <span>Rating: </span>
+    <star-rating [starType]="'svg'" [showHalfStars]="true" [rating]="rating"
+                 (starClickChange)="onStarClick($event)"></star-rating>
+    <textarea type="text" class="form-control" id="comment" name="comment"
+              [(ngModel)]="productComment" rows="5"
+               placeholder="Your comment about this product" value="productComment" required>
+     </textarea>
+    <div class="invalid-feedback">
+      Please enter your comment.
+    </div>
+    <div class="btn-wrapper">
+      <button class="btn btn-orange" (click)="addCommentClick()"
+              [disabled]="disableBtn()" >Add</button>
+    </div>
+    <hr>
+  </div>
+  <div class="comment-content" *ngFor="let comment of listComment">
+    <div class="row">
+      <div class="col-sm-3">
+        <div *ngIf="comment.userDetail !== undefined " class="user-content">
+          <img class=" mx-auto d-block user-avatar"
+               [src]="comment.userDetail.avatar"
+               [alt]="comment.userDetail.profile[0].lastName">
+          <h5>{{comment.userDetail.profile[0].firstName}} {{comment.userDetail.profile[0].lastName}}</h5>
+          <div>{{distanceDate(comment.createdAt)}}</div>
+        </div>
+        <div *ngIf="comment.userDetail === undefined " class="user-content">
+          <img class=" mx-auto d-block user-avatar"
+               src="./assets/images/631929649c.svg"
+               [alt]="avatar"
+               style="width: 50%; height: auto; margin-bottom: 1em">
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <star-rating  class="none-margin" [starType]="'svg'" [showHalfStars]="true" [rating]="comment.rating"
+                     [readOnly]="true"></star-rating>
+        <div class="content">{{comment.content}}</div>
+        <!--<div class="comment-icon">Reply</div>-->
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>

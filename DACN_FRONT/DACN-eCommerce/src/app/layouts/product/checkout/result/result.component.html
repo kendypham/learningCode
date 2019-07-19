@@ -1,0 +1,102 @@
+<div class="mt-5 mb-5" style="position: relative" >
+  <a name="" id="" class="btn btn-orange btn-absolute" href="javascript:;;" role="button"
+    (click)="downloadReceipt()"><i class="fa fa-download"></i> Receipt</a>
+
+  <div class="row" id="receipt">
+    <div class="well col-xs-12 col-sm-12 col-md-10" style="margin: auto">
+      <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-10">
+          <p>
+            <em>Date: {{date | date}}</em>
+          </p>
+          <p>
+            <em>Receipt #: {{orderData.id}}</em>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <h1>Receipt</h1>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of checkoutProducts">
+              <td>
+                <h6><em>{{product.productName}}</em></h6>
+              </td>
+              <td class="text-center">{{product.quantity}}</td>
+              <td class="text-center"> {{product.price | number:'1.0-0'}} VND</td>
+              <td class="text-center"> {{product.price * product.quantity | number:'1.0-0'}} VND</td>
+            </tr>
+            <tr>
+              <td>   </td>
+              <td>   </td>
+              <td class="text-right">
+                <p>
+                  <strong>Subtotal: </strong>
+                </p>
+                <p>
+                  <strong>Ship Fee: </strong>
+                </p>
+              </td>
+              <td class="text-center">
+                <p>
+                  <strong>{{totalPrice | number:'1.0-0'}}</strong>
+                </p>
+                <p>
+                  <strong> {{orderData.shipFee | number:'1.0-0'}} VND</strong>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>   </td>
+              <td>   </td>
+              <td class="text-right">
+                <p><strong>Total: </strong></p>
+              </td>
+              <td class="text-center text-danger">
+                <h4><strong> {{totalPrice + orderData.shipFee | number:'1.0-0'}} VND</strong></h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <h1>Information</h1>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <h6><em>{{orderData.email}}</em></h6>
+              </td>
+              <td class="text-center">{{orderData.firstName + " " + orderData.lastName}}</td>
+              <td class="text-center">{{orderData.location.address + ", " + orderData.location.district + ", " + orderData.location.city}}</td>
+              <td class="text-center">{{orderData.phoneNumber}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 *ngIf="paypalLoad">Paypal button is loading</h2>
+      <div *ngIf="orderData.paymentMethod == 'Online' && orderData.status != 'Paid'" id="paypal-checkout-btn"></div>
+  </div>
+
+</div>
+</div>

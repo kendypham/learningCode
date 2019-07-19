@@ -1,0 +1,76 @@
+<br>
+<div class="announce">
+  <p *ngIf="(products != undefined) ">{{products.length}} products found</p>
+  <p *ngIf="(products == undefined) ">No products found</p>
+</div>
+
+<div class="container">
+  <div class="container-fluid">
+    <!-- <app-card-loader [loop]="4" [height]="800" *ngIf="loading"></app-card-loader> -->
+    <!--Display product-->
+    <div class="row">
+      <!-- List of Products -->
+      <div class="col-sm-3 mb-4"
+        *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+        <div class="item">
+          <div class=" mb-r">
+            <!--Card-->
+            <div class="card card-cascade wider">
+              <!--Card image-->
+              <a [routerLink]="['/products/product', product.id]">
+                <div class="view overlay hm-white-slight" *ngIf="product.images.length > 0">
+                  <img [src]="product.images[0].url" class="img-fluid" alt="" width="360px" height="640px">
+                  <a>
+                    <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                  </a>
+                </div>
+
+                <!-- else -->
+                <div class="view overlay hm-white-slight" *ngIf="product.images.length == 0">
+                  <img [src]="imageLinkNull" class="img-fluid" alt="" width="360px" height="640px">
+                  <a>
+                    <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                  </a>
+                </div>
+              </a>
+              <!--/.Card image-->
+              <!--Card content-->
+              <div class="card-body text-center no-padding">
+                <p class="card-title">
+                  <strong>
+                    <a [routerLink]="['/products/product', product.id]" routerLinkActive="router-link-active">{{
+                      product.name }}</a>
+                  </strong>
+                </p>
+                <!--Description-->
+                <p class="card-text">
+                  {{ (product.description.length > 30) ? (product.description | slice:0:30) +'...' : (product.description + '.....')  }}
+                  <br><a [routerLink]="['/products/product', product.id]" style="background: #ffa000;">Xem thêm</a>
+                </p>
+                <!--Card footer-->
+                <div class="card-footer">
+                  <span class="left"> {{ product.price | number:'1.0-0' }} VND</span>
+                  <span class="right">
+                    <a placement="top" mdbTooltip="Add to Wishlist" container="body"
+                      (click)="favouriteClicked(product)">
+                      <i [ngStyle]=" {'color' : product.favourite ? '#ffa000' : '#EDE7D9' }" class="fa fa-heart"></i>
+                    </a>
+                  </span>
+                </div>
+
+              </div>
+              <!--/.Card content-->
+
+            </div>
+            <!--/.Card-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="text-center mt-3">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.table-responsive{
+  width: 98%;
+}
+:host /deep/ ng2-smart-table{
+  table{
+    th{
+      background-color: #212529;
+      border-color: #32383e;
+      &:last-child{
+        color: white;
+      }
+    }
+    td{
+      border: 1px solid #dee2e6;
+    }
+  }
+  ng2-smart-table-title{
+    a{
+      color: white;
+    }
+    a.sort.asc::after, a.sort.desc::after{
+      border-bottom: 4px solid white;
+      margin-left: 5px;
+    }
+  }
+  table-cell-view-mode{
+    ul{
+      padding-left: 10px;
+    }
+  }
+}

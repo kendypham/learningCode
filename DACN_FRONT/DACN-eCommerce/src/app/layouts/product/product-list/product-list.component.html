@@ -1,0 +1,114 @@
+<br>
+<div class="container">
+  <div class="row" *ngIf="authService.isAdmin()">
+    <div class="col-sm">
+      <div class="float-right">
+        <button type="button" class="btn btn-orange waves-light" data-toggle="modal" [routerLink]="['/admin']">
+          Go to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+
+    <div>
+      <!--Brand of device-->
+      <ul class="nav list-brands">
+        <li class="nav-item brand-item" [value]="'All'" (click)="this.updateSelectedBrand('All')">
+          <a>All</a>
+        </li>
+        <li class="nav-item brand-item" *ngFor="let brand of brands" [value]="brand"
+          (click)="this.updateSelectedBrand(brand)">
+          <a>{{brand}}</a>
+        </li>
+      </ul>
+      <div class="row price-content">
+        <div class="col-sm-1">
+          <span class="price-title">Price: </span>
+        </div>
+        <div class="col-sm-11">
+          <ul class="nav list-prices">
+            <li class="nav-item price-item" *ngFor="let price of prices" [value]="price"
+              (click)="this.updateSelectedPrice(price)">
+              <a>{{price}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <app-card-loader [loop]="4" [height]="800" *ngIf="loading"></app-card-loader>
+    <!--Display product-->
+    <div class="row" *ngIf="!loading">
+      <!-- List of Products -->
+      <div class="col-sm-3 mb-4"
+        *ngFor="let product of options | filterByBrand: selectedBrand | filterByPrice: selectedPrice | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+        <div class="item">
+          <div class=" mb-r">
+            <!--Card-->
+            <div class="card card-cascade wider">
+              <!--Card image-->
+              <a [routerLink]="['/products/product', product.id]">
+                <div class="view overlay hm-white-slight" *ngIf="product.images.length > 0">
+                  <img [src]="product.images[0].url" class="img-fluid" alt="" width="360px" height="640px">
+                  <a>
+                    <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                  </a>
+                </div>
+
+                <!-- else -->
+                <div class="view overlay hm-white-slight" *ngIf="product.images.length == 0">
+                  <img [src]="imageLinkNull" class="img-fluid" alt="" width="360px" height="640px">
+                  <a>
+                    <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                  </a>
+                </div>
+              </a>
+              <!--/.Card image-->
+              <!--Card content-->
+              <div class="card-body text-center no-padding">
+                <p class="card-title">
+                  <strong>
+                    <a [routerLink]="['/products/product', product.id]" routerLinkActive="router-link-active">{{
+                      product.name }}</a>
+                  </strong>
+                </p>
+                <!--Description-->
+                <p class="card-text">
+                  {{ (product.description.length > 30) ? (product.description | slice:0:30) +'...' : (product.description + '.....')  }}
+                  <br><a [routerLink]="['/products/product', product.id]" style="background: #ffa000;">Xem thêm</a>
+                </p>
+                <!--Card footer-->
+                <div class="card-footer">
+                  <span class="left"> {{ product.price | number:'1.0-0' }} VND</span>
+                  <span class="right">
+                    <a placement="top" mdbTooltip="Add to Wishlist" container="body"
+                      (click)="favouriteClicked(product)">
+                      <i [ngStyle]=" {'color' : product.favourite ? '#ffa000' : '#EDE7D9' }" class="fa fa-heart"></i>
+                    </a>
+                    <a placement="top" mdbTooltip="Add to Cart" container="body" (click)=" createItem(product)">
+                      <i class="fa fa-shopping-cart"></i>
+                    </a>
+                    <!--<a placement="top" mdbTooltip="Remove Product" container="body" *ngIf="authService.isAdmin()"-->
+                    <!--(click)="removeProduct(product.id)">-->
+                    <!--<i class="fa fa-trash"></i>-->
+                    <!--</a>-->
+                  </span>
+                </div>
+
+              </div>
+              <!--/.Card content-->
+
+            </div>
+            <!--/.Card-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="text-center mt-3">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

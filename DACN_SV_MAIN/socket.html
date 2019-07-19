@@ -1,0 +1,15 @@
+<head>
+	<script type="text/javascript" src="./sails.io.js"></script>
+	<script type="text/javascript">
+		io.socket.get("http://localhost:1339/order/sub-new-orders", (res) => {
+			if (res) console.log('Subscribed')
+		})
+
+		io.socket.on('new-order', (res) => {
+			if (res) console.log(res)
+		})
+	</script>
+</head>
+<body>
+
+</body>

@@ -1,0 +1,24 @@
+<!--<h4 class="d-flex justify-content-between align-items-center mb-3">-->
+  <!--<span class="text-muted">Your cart</span>-->
+  <!--<span class="badge badge-primary badge-pill">{{products.length}}</span>-->
+<!--</h4>-->
+<ul class="list-group mb-3">
+  <!--<li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let product of products">-->
+    <!--<div>-->
+      <!--<h6 class="my-0">{{product.name}}</h6>-->
+    <!--</div>-->
+    <!--<span class="text-muted">VND {{product.price | number:'1.0-0'}}</span>-->
+  <!--</li>-->
+  <!--<hr>-->
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Temporary (VND)</span>
+    <strong> {{totalValue | number:'1.0-0'}} VND</strong>
+  </li>
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Total (VND)</span>
+    <strong class="total-price"> {{totalValue | number:'1.0-0'}} VND</strong>
+  </li>
+  <a class="btn btn-orange" [routerLink]="['/products/all-products']">Continue Shopping</a>
+  <a class="btn btn-default" [routerLink]="['/checkouts']">Checkout</a>
+
+</ul>

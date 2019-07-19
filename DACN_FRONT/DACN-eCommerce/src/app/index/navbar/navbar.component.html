@@ -1,0 +1,118 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark" *ngIf="navbarFooterService.visibleNav">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="#">
+    <img src="../../../assets/icons/logo.jpg" alt="logo" height="50" width="50">
+  </a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto text-nowrap">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;;" [routerLink]="[ '/' ]">{{this.translate.data["HOME"] | translate}}
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/phone-list']">
+            <i class="fa fa-mobile ">
+              Phone
+            </i>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/tablet-list']">
+            <i class="fa fa-tablet ">
+              Tablet
+            </i>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/laptop-list']">
+            <i class="fa fa-laptop ">
+              Laptop
+            </i>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/accessory-list']">
+            <i class="fa fa-headphones ">
+              Accessory
+            </i>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/watch-list']">
+            <i class="fa fa-clock-o" aria-hidden="true">
+              Watch
+            </i>
+          </a>
+        </div>
+      </li>
+      <form class="form-inline my-2 my-lg-0" #productForm="ngForm">
+        <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}" name="name"
+          [(ngModel)]="querry" (keyup.enter)="searchNav()">
+        <i class="fa fa-search" (click)="searchNav()"></i>
+      </form>
+    </ul>
+
+
+    <ul class="navbar-nav ml-auto text-nowrap">
+      <li class="nav-item" *ngIf="authService.isLoggedIn() && storageService.getUser().isConfirmed">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/favourite-products']">
+            <i class="fa fa-heart">
+              <span class="mt-2"> {{productService.navbarFavProdCount}}</span>
+            </i>
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/cart-items']">
+            <i class="fa fa-shopping-cart">
+              <span class="mt-2"> {{productService.navbarCartCount}}</span>
+            </i>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/users']">
+          <i class="fa fa-user mr-1"></i>{{this.translate.data["MYACCOUNT"] | translate}}</a>
+      </li>
+
+
+      <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+        <a class="nav-link" [routerLink]="[ '/login' ]">
+          <i class="fa fa-sign-in mr-1"></i> {{this.translate.data["SIGNIN"] | translate}}</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" (click)="logout()">
+          <i class="fa fa-sign-in mr-1"></i>{{this.translate.data["LOGOUT"] | translate}}</a>
+      </li>
+
+    </ul>
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->

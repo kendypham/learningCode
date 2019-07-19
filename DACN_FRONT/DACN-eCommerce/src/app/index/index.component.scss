@@ -1,0 +1,19 @@
+.carousel-indicators li {
+  background-color: #2d3246;
+}
+.carousel-control-prev-icon {
+  width: 3em;
+  height: 3em;
+  background-color: #2d3246;
+}
+.carousel-control-next-icon {
+  width: 3em;
+  height: 3em;
+  background-color: #2d3246;
+}
+
+@media screen and (max-width: 425px) {
+  .text-dark {
+    display: none;
+  }
+}

@@ -1,0 +1,1 @@
+var route_front_end = require('./route/core/front/route_front');

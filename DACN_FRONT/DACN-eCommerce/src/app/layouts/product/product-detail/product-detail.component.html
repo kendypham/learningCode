@@ -1,0 +1,87 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="product-image">
+        <!-- <div class="view hm-zoom z-depth-2" style="cursor: pointer">
+          <img [src]="product.images" [alt]="product.name" width="100%" class="img-fluid rounded">
+
+        </div> -->
+        <div class="preview-pic tab-content view hm-zoom z-depth-2" style="cursor: pointer">
+          <div class="tab-pane active" id="pic-0"><img [src]="showImage" class="img-fluid rounded" /></div>
+              <!--class="img-fluid rounded" /></div>-->
+        </div>
+        <ul class="preview-thumbnail nav nav-tabs" style="cursor: pointer">
+          <li class="active" *ngFor="let image of productImg" (click)="selectedImg(image)">
+            <a data-target="#pic-0" data-toggle="tab">
+            <img [src]="image.url" class="rounded" /></a>
+          </li>
+
+        </ul>
+        <!--<div class="" style="margin-top:15px">-->
+          <!--<ul class="list-group mb-3">-->
+            <!--<li class="list-group-item d-flex justify-content-between lh-condensed">-->
+              <!--<div>-->
+                <!--<h6 class="my-0">Product Price</h6>-->
+              <!--</div>-->
+              <!--<span class="text-muted" style="color:crimson !important">-->
+                <!--{{product.price | number:'1.0-0'}} VND</span>-->
+            <!--</li>-->
+            <!--<li class="list-group-item d-flex justify-content-between lh-condensed">-->
+              <!--<div>-->
+                <!--<h6 class="my-0">Product Seller</h6>-->
+              <!--</div>-->
+              <!--<span class="text-muted" style="color:crimson !important">{{product.seller}}</span>-->
+            <!--</li>-->
+            <!--&lt;!&ndash;<li class="list-group-item d-flex justify-content-between lh-condensed">&ndash;&gt;-->
+              <!--&lt;!&ndash;<star-rating [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="product.rating">&ndash;&gt;-->
+              <!--&lt;!&ndash;</star-rating>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="product-detail">
+        <h5 class="product-head">{{product.name}}</h5>
+        <table class="table" cellspacing="0" style="max-height: 28px">
+          <tbody>
+            <tr>
+              <th scope="row">
+                <star-rating [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="product.rating">
+                </star-rating>
+              </th>
+              <td>Brand: <span style="color:dodgerblue">{{product.seller}}</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td style="color:crimson;font-size: large">{{product.price | number:'1.0-0'}} VND</td>
+            </tr>
+            <tr>
+              <th scope="row">Description</th>
+              <td #decription></td>
+            </tr>
+            <tr>
+              <th scope="row">Product Category</th>
+              <td>{{categoryName}}</td>
+            </tr>
+            <tr>
+              <th scope="row">No. of quantity available</th>
+              <td>{{product.quantity}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Added on</th>
+              <td>{{product.createdAt | date}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button class="btn btn-orange" (click)="createItem(product)">Add to Cart</button>
+          <button class="btn btn-blue" (click)="favouriteClicked(product)" *ngIf="product.favourite === false">Add to Wishlist</button>
+          <button class="btn btn-blue" (click)="favouriteClicked(product)" *ngIf="product.favourite === true">Remove from Wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-product-comment></app-product-comment>
+</div>

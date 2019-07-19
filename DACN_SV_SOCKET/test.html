@@ -1,0 +1,42 @@
+<!-- ./client/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button onClick="sendMsg()">Hit Me</button>
+		<button onClick="sendFakeData()">Spank me</button>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+		<script>
+			const socketServerURL = 'http://localhost:1340'
+
+			const socket = io(socketServerURL)
+
+			socket.emit('userOnline')
+
+			socket.on('userCountUpdate', (data) => {
+				console.log(data)
+			})
+
+			socket.on('newOrder', (data) => {
+				console.log(data)
+			})
+
+			function sendMsg() {
+				const http = new XMLHttpRequest()
+				const data = {orderId: 23423}
+				http.open('POST', `${socketServerURL}/new-order`)
+				http.setRequestHeader('Content-Type', 'application/json')
+				http.send(JSON.stringify(data))
+			}
+
+			function sendFakeData() {
+				socket.emit('userCountRequest')
+			}
+		</script>
+	</body>
+</html>

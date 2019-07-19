@@ -1,0 +1,14 @@
+:host {
+  main {
+    position: relative;
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .owl-carousel {
+    .owl-item{
+      padding-left: 40px;
+    }
+  }
+}

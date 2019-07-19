@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-sm-offset-2">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+            Add Product</h3>
+        </div>
+        <div class="card-body">
+          <form class="needs-validation" #addProductForm="ngForm" (ngSubmit)="createProduct(addProductForm)">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="name"><i class="fa fa-info" aria-hidden="true"></i>
+                  Product Name</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name"
+                  placeholder="Product Name" value="" required>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="categoryId"><i class="fa fa-info" aria-hidden="true"></i>
+                  Product Category</label>
+                <select class="form-control" name="categoryId" id="categoryId" [(ngModel)]="product.categoryId">
+                  <option *ngFor="let category of common.categorys" [ngValue]="category.id">{{category.name}}</option>
+                </select>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="description"><i class="fa fa-info" aria-hidden="true"></i>
+                Product Description
+                <span class="text-muted">(Optional)</span>
+              </label>
+              <!-- <textarea type="text" class="form-control" id="description" placeholder="Product Description"
+                name="description" [(ngModel)]="product.description"></textarea> -->
+              <ejs-richtexteditor name="description" id='description' [(ngModel)]="product.description"
+                [toolbarSettings]='tools' [quickToolbarSettings]='quickTools'>
+              </ejs-richtexteditor>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="price"><i class="fa fa-usd" aria-hidden="true"></i> Product Price</label>
+                <input type="number" name="price" class="form-control" [(ngModel)]="product.price"
+                  placeholder="Product Price" id="price" value="" required>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="quantity"><i class="fa fa-info" aria-hidden="true"></i> Product Quantity</label>
+                <input type="text" class="form-control" id="quantity" name="quantity" [(ngModel)]="product.quantity"
+                  placeholder="Product Quantity" value="" required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="seller"><i class="fa fa-info" aria-hidden="true"></i>
+                Product Seller</label>
+              <input type="text" class="form-control" id="seller" [(ngModel)]="product.seller" name="seller"
+                placeholder="Product Seller" required>
+            </div>
+            <div class="mb-3">
+              <label for="images"><i class="fa fa-file-image-o" aria-hidden="true"></i> Product Image</label><br>
+              <!-- <input type="radio" name="isCheck" [(ngModel)]="isChecked" value="1" (change)="onCheck($event)" checked> Upload Image URL<br>
+              <input
+                type="text" class="form-control"
+                id="imageLinks" [(ngModel)]="product.imageLinks"
+                name="imageLinks"
+                placeholder="Image Url"
+                [attr.disabled]="isChecked == 1 ? null : '' "
+                > -->
+              <!-- <input type="radio" name="isCheck" [(ngModel)]="isChecked" value="2" (change)="onCheck($event)"> Upload Image Files<br> -->
+              <!-- <input
+                type="file" [attr.disabled]="isChecked == 2 ? null :'' "
+                multiple accept="image/*"
+                class="form-control"
+                placeholder="Product Image"
+                id="images" [(ngModel)]="product.images"
+                name="productImg" (change)="onFileSelected($event)"> -->
+              <input type="file" multiple accept="image/*" class="form-control" placeholder="Product Image" id="images"
+                [(ngModel)]="product.images" name="productImg" (change)="onFileSelected($event)">
+            </div>
+
+            <hr class="mb-4">
+
+            <button class="btn btn-primary" type="submit" [disabled]="!addProductForm.form.valid">Add Product</button>
+            <button type="button" class="btn btn-warning" [routerLink]="['admin/dashboard/view-product']">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

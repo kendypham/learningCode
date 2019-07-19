@@ -1,0 +1,16 @@
+.container{
+  margin-top: 2em;
+  margin-bottom: 5em;
+  a{
+    &.btn-style{
+      color: #2d3246;
+      &:hover{
+        color: #2a00ff;
+      }
+    }
+  }
+}
+
+.marginCol{
+  margin : 2em;
+}

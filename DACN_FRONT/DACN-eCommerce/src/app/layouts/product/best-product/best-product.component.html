@@ -1,0 +1,78 @@
+<!--Section: Products v.2-->
+<section class="section pb-3">
+
+  <div class="row">
+    <div class="col-md-6">
+      <blockquote class="blockquote float-left bq-primary">
+        <h3 class="bq-title">{{translate.data[translateTitle] | translate}}</h3>
+      </blockquote>
+    </div>
+    <div class="col-md-6">
+      <a class="btn btn-default float-right" [routerLink]="[ viewLink ]">{{translate.data["VIEWALL"] |
+        translate}}</a>
+    </div>
+  </div>
+
+  <div *ngIf="loading">
+    <app-card-loader [loop]="4" [height]="500"></app-card-loader>
+  </div>
+
+  <owl-carousel *ngIf="!loading" [options]="options" [items]="choice"
+    [carouselClasses]="['owl-theme', 'row', 'sliding']">
+    <!--First column-->
+    <div class="item" style="padding:20px" *ngFor="let product of choice;let i = index">
+      <div class="mb-r">
+
+        <!--Card-->
+        <div class="card card-cascade wider">
+
+          <!--Card image-->
+          <a [routerLink]="['/products/product', product.id]">
+            <div class="view overlay hm-white-slight" >
+              <img *ngIf="product.images.length > 0" [src]="product.images[0].url" class="img-fluid" alt="" width="360px" height="640px">
+              <img *ngIf="product.images.length == 0" [src]="imageLinkNull" class="img-fluid" alt="" width="360px" height="640px">
+
+              <a>
+                <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+              </a>
+            </div>
+          </a>
+          <!--/.Card image-->
+
+          <!--Card content-->
+          <div class="card-body text-center no-padding">
+            <!--Category & Title-->
+            <!-- <a href="" class="text-muted">
+              <h5>{{ product.categoryId }}</h5>
+            </a> -->
+            <h5 class="card-title">
+              <strong>
+                <a [routerLink]="['/products/product', product.id]">{{ product.name }}</a>
+              </strong>
+            </h5>
+
+            <!--Description-->
+            <p class="card-text">
+              {{ (product.description.length > 30) ? (product.description | slice:0:30) +'...' : (product.description + '.....')  }}
+              <br><a [routerLink]="['/products/product', product.id]" style="background: #ffa000;">Xem thêm</a>
+            </p>
+
+            <!--Card footer-->
+            <div class="card-footer">
+              <span class="left"> {{ product.price | number:'1.0-0' }} VND</span>
+              <span class="right">
+                <a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="favouriteClicked(product)">
+                  <i class="fa fa-heart" [ngStyle]=" {'color' : product.favourite ? '#ffa000' : '#EDE7D9' }"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+          <!--/.Card content-->
+        </div>
+        <!--/.Card-->
+      </div>
+      <!--/First column-->
+    </div>
+  </owl-carousel>
+</section>
+<!--Section: Products v.2-->

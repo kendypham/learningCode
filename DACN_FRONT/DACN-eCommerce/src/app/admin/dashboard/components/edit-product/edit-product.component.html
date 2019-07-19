@@ -1,0 +1,177 @@
+<div class="container" *ngIf="loading == true">
+  <div class="row">
+    <div class="col-sm-12 col-sm-offset-2">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center"><i class="fa fa-user" aria-hidden="true"></i>
+            Product Detail</h3>
+        </div>
+        <div class="card-body">
+          <img class=" mx-auto d-block" [src]="updateProduct.images[0].url" *ngIf="updateProduct.images.length > 0"
+            [alt]="updateProduct.name" style="width: 20%; height: 20%; margin-bottom: 2em">
+          <img class=" mx-auto d-block" src="https://via.placeholder.com/150x200"
+            *ngIf="updateProduct.images.length === 0" [alt]="updateProduct.name"
+            style="width: 20%; height: 20%; margin-bottom: 2em">
+          <form #updateProductForm="ngForm" (ngSubmit)="updateProductDetail(updateProductForm)">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="name"><i class="fa fa-info"></i> Product Name</label>
+                <input mdbActive type="text" class="form-control" id="name" required [(ngModel)]="updateProduct.name"
+                  name="name" #name="ngModel" />
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                  Product name is required
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="categoryId"><i class="fa fa-info"></i> Category</label>
+                <select class="form-control" name="categoryId" id="categoryId" #categoryId="ngModel" required
+                  [(ngModel)]="updateProduct.categoryId">
+                  <option *ngFor="let category of listCategories" [ngValue]="category.id">{{category.name}}</option>
+                </select>
+                <div [hidden]="categoryId.valid || categoryId.pristine" class="alert alert-danger">
+                  Category is required
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="description"><i class="fa fa-info" aria-hidden="true"></i> Description</label>
+                <!-- <input type="description" class="form-control" id="description" mdbActive
+                  [(ngModel)]="updateProduct.description" placeholder="Enter description" mdbInputValidate
+                  name="description" autocomplete="description" #description="ngModel" required /> -->
+                <ejs-richtexteditor class="form-control" name="description" mdbActive mdbInputValidate
+                  [(ngModel)]="updateProduct.description" [toolbarSettings]='tools' required
+                  [quickToolbarSettings]='quickTools'>
+                </ejs-richtexteditor>
+                <div [hidden]="updateProduct.description && updateProduct.description.length > 0"
+                  class="alert alert-danger">
+                  Description is required
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="price"><i class="fa fa-dollar" aria-hidden="true"></i> Price</label>
+                <input type="price" class="form-control" id="price" placeholder="Price" mdbActive
+                  [(ngModel)]="updateProduct.price" mdbInputValidate autocomplete="new-price" name="price"
+                  #price="ngModel" required />
+                <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+                  Price is required
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="quantity"><i class="fa fa-info"></i> Quantity</label>
+                <input type="text" class="form-control" id="quantity" placeholder="Quantity" mdbActive
+                  [(ngModel)]="updateProduct.quantity" name="quantity" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="seller"><i class="fa fa-info"></i> Producer</label>
+                <input type="text" class="form-control" id="seller" placeholder="Apple, Samsung, Hwawei" mdbActive
+                  [(ngModel)]="updateProduct.seller" name="seller" #seller="ngModel" required />
+                <div [hidden]="seller.valid || seller.pristine" class="alert alert-danger">
+                  Producer is required
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="rating"><i class="fa fa-info"></i> Rating</label>
+                <input type="text" class="form-control" id="rating" mdbActive [(ngModel)]="updateProduct.rating"
+                  name="rating" />
+              </div>
+            </div> -->
+
+            <!-- <div class="mb-3">
+              <label for="images"><i class="fa fa-file-image-o" aria-hidden="true"></i> Product Image</label><br>
+              <input type="radio" name="isCheck" [(ngModel)]="isChecked" value="1" (change)="onCheck($event)" checked>
+              Upload Image URL<br>
+              <input type="text" class="form-control" id="imageLinks" [(ngModel)]="updateProduct.imageLinks"
+                name="imageLinks" placeholder="Image Url" [attr.disabled]="isChecked == 1 ? null : '' ">
+              <input type="radio" name="isCheck" [(ngModel)]="isChecked" value="2" (change)="onCheck($event)"> Upload
+              Image Files<br>
+              <input type="file" [attr.disabled]="isChecked == 2 ? null :'' " multiple accept="image/*"
+                class="form-control" placeholder="Product Image" id="images" [(ngModel)]="updateProduct.images"
+                name="productImg" (change)="onFileSelected($event)">
+            </div> -->
+            <button type="submit" class="btn btn-primary" [disabled]="!updateProductForm.form.valid">
+              Update
+            </button>
+            <button type="button" class="btn btn-warning" [routerLink]="['/admin/dashboard/view-product']">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#galleryImg">
+              Image gallery
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal: Register Form-->
+<div class="modal fade " id="galleryImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <ul class="preview-thumbnail nav nav-tabs" style="cursor: pointer">
+          <li class="image-item" *ngFor="let image of imgProduct; let i = index" (click)="onRemoveFile('oldImg',i)">
+            <img [src]="image.url"/>
+            <i class="fa fa-times remove-img"></i>
+          </li>
+          <li class="image-item" *ngFor="let image of fileUrl; let i = index" (click)="onRemoveFile('newImg',i)">
+            <img [src]="image "/>
+            <i class="fa fa-times remove-img"></i>
+          </li>
+          <li class="image-item" *ngIf="imgProduct.length + selectedFile.length < 5">
+            <i class="fa fa-camera add-img"></i>
+            <input type="file" multiple accept="image/*" class="form-control" placeholder="Product Image"
+                   (change)="onFileSelected($event)">
+          </li>
+        </ul>
+        <!--<div class="button-wrapper">-->
+          <!--<button class="btn btn-add">Add image</button>-->
+          <!--<input type="file" multiple accept="image/*" class="form-control add-image"-->
+                 <!--(change)="onFileSelected($event)">-->
+        <!--</div>-->
+        <!--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">-->
+          <!--<div class="carousel-inner">-->
+            <!--<div class="carousel-item active" style="align-items: center;-->
+                <!--justify-content: center;">-->
+              <!--<img class="d-block img-fluid" [src]="this.showImage()" alt="First slide" width="400px" height="400px">-->
+            <!--</div>-->
+            <!--<div class="carousel-item " style="align-items: center;-->
+                <!--justify-content: center;" *ngIf="imgProduct.length > 1">-->
+              <!--<img *ngIf="imgProduct.length > 1" class="d-block img-fluid" [src]="imgProduct[1].url" alt="First slide"-->
+                <!--width="400px" height="400px">-->
+            <!--</div>-->
+            <!--<div class="carousel-item " style="align-items: center;-->
+                <!--justify-content: center;" *ngIf="imgProduct.length > 2">-->
+              <!--<img *ngIf="imgProduct.length > 2" class="d-block img-fluid" [src]="imgProduct[2].url" alt="First slide"-->
+                <!--width="400px" height="400px">-->
+            <!--</div>-->
+            <!--<div class="carousel-item " style="align-items: center;-->
+                <!--justify-content: center;" *ngIf="imgProduct.length > 3">-->
+              <!--<img *ngIf="imgProduct.length > 3" class="d-block img-fluid" [src]="imgProduct[3].url" alt="First slide"-->
+                <!--width="400px" height="400px">-->
+            <!--</div>-->
+            <!--<div class="carousel-item " style="align-items: center;-->
+                <!--justify-content: center;" *ngIf="imgProduct.length > 4">-->
+              <!--<img *ngIf="imgProduct.length > 4" class="d-block img-fluid" [src]="imgProduct[4].url" alt="First slide"-->
+                <!--width="400px" height="400px">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">-->
+            <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+            <!--<span class="sr-only">Previous</span>-->
+          <!--</a>-->
+          <!--<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">-->
+            <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+            <!--<span class="sr-only">Next</span>-->
+          <!--</a>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</div>

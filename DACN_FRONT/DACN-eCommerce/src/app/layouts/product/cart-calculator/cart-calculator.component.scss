@@ -1,0 +1,21 @@
+//.list-group-item{
+//  width: 100%;
+//  .row{
+//    width: 100%;
+//    .align{
+//      text-align: right;
+//      @media screen and (max-width: 425px) {
+//        text-align: left;
+//      }
+//    }
+//  }
+//  &:hover:focus{
+//    cursor: pointer;
+//    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+//  }
+//}
+
+.total-price{
+  color: #ff4843;
+  font-size: 1.125em;
+}

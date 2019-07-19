@@ -1,0 +1,32 @@
+<div class="container" *ngIf="loading == true">
+  <div class="table-responsive">
+    <ng2-smart-table [settings]="settings"
+                     [source]="orderLists"
+                     (rowSelect)="selectRow($event)"></ng2-smart-table>
+  </div>
+  <div class="display-button">
+    <button class="btn btn-edit" *ngIf="selectedOrder.length > 0" data-toggle="modal" data-target="#updateStatus">
+      Change status</button>
+    <button class="btn btn-delete" *ngIf="selectedOrder.length > 0" (click)="onCancel()">Cancel</button>
+  </div>
+</div>
+<div  class="modal fade " id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <h5 style="margin-top: 5px">Select status</h5>
+          </div>
+          <div class="col-8">
+            <select class="form-control" name="status" id="status" #status="ngModel" required
+                    [(ngModel)]="selectedStatus">
+              <option *ngFor="let status of listStatus" [ngValue]="status">{{status}}</option>
+            </select></div>
+        </div>
+        <button class="btn btn-change" data-dismiss="modal" [disabled]="!selectedStatus" (click)="onChangeStatus()">
+          Change</button>
+      </div>
+    </div>
+  </div>
+</div>

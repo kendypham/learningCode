@@ -1,0 +1,72 @@
+<br>
+<div class="container" *ngIf="favouriteProducts.length > 0">
+  <div class="row">
+    <!-- List of Products -->
+    <div class="col-md-3" *ngFor="let product of favouriteProducts">
+      <div class="item">
+        <div class=" mb-r">
+
+          <!--Card-->
+          <div class="card card-cascade wider">
+
+            <!--Card image-->
+            <a [routerLink]="['/products/product', product.id ]">
+
+              <div class="view overlay hm-white-slight">
+                <img [src]="product.images" class="img-fluid" alt="" width="360px" height="640px">
+                <a>
+                  <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                </a>
+              </div>
+            </a>
+
+            <!--/.Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center no-padding">
+              <!--Category & Title-->
+              <!-- <a class="text-muted">
+                <h5>{{ product.categoryId }}</h5>
+              </a> -->
+              <h5 class="card-title">
+                <strong>
+                  <a [routerLink]="['/products/product', product.id]">{{ product.name }}</a>
+                </strong>
+              </h5>
+
+              <!--Description-->
+              <p class="card-text">
+                {{ (product.description.length > 30) ? (product.description | slice:0:30) +'...' : (product.description + '.....')  }}
+                <br><a [routerLink]="['/products/product', product.id]" style="background: #ffa000;">Xem thêm</a>
+              </p>
+
+              <!--Card footer-->
+              <div class="card-footer">
+                <span class="left">{{ product.price | number:'1.0-0' }} VND</span>
+                <span class="right">
+                  <a placement="top" mdbTooltip="Quick Look" container="body"
+                    [routerLink]="['/products/product', product.id]">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a placement="top" mdbTooltip="Remove Product" container="body" (click)="removeFavourite(product)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+            <!--/.Card content-->
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="favouriteProducts.length === 0">
+
+  <app-no-products-found [title]="messageTitle" [description]="messageDescription"></app-no-products-found>
+</div>

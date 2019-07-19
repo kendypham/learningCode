@@ -1,0 +1,31 @@
+<br>
+<section class="container">
+  <div *ngIf="isConfirm == true" class="container mgBtn">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Confirm Successful</h3>
+        </div>
+        <div class="card-body text-center">
+          <i class="fa fa-check-circle-o fa-5x" aria-hidden="true"></i>
+          <br />
+          <a type="button" class="btn btn-primary" routerLink="/login">Back to Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="container">
+    <div *ngIf="isConfirm != true" class="container mgBtn">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card card-test">
+          <div class="card-header text-center">
+            <h3>Please confirm your email</h3>
+          </div>
+          <div class="card-body text-center">
+            <a type="button" class="btn btn-primary" (click)="requestConfirm(tmpToken)">Get email confirm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
