@@ -1,22 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
-  const [test, setTest] = useState('')
-  useEffect(() => {
-    setTest(`You clicked ${count} times haha`)
-    console.log(test);
+import CharPicker from './components/CharPicker';
+import Character from './components/Character';
 
-  })
-  console.log(test);
+const App = props => {
+  // const [state, setState] = useState({
+  //   selectedCharacter: 1,
+  //   side: 'light',
+  //   destroyed: false
+  // })
 
-  return (
-    <div className="App">
-      <p>{test}</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
+  const [selectedCharacter, setSelectedCharacter] = useState(1)
+  const [chosenSide, setChosenSide] = useState('light')
+  const [destroyed, setDestroyed] = useState(false)
+  const sideHandler = side => {
+    setChosenSide(side)
+  };
+
+  const charSelectHandler = event => {
+    const charId = event.target.value;
+    setSelectedCharacter(charId)
+  };
+
+  const destructionHandler = () => {
+    setDestroyed(true)
+  };
+
+  let content = (
+    <React.Fragment>
+      <CharPicker
+        side={chosenSide}
+        selectedChar={selectedCharacter}
+        onCharSelect={charSelectHandler}
+      />
+      <Character selectedChar={selectedCharacter} />
+      <button onClick={sideHandler.bind(this, 'light')}>
+        Light Side
+        </button>
+      <button onClick={sideHandler.bind(this, 'dark')}>Dark Side</button>
+      {chosenSide === 'dark' && (
+        <button onClick={destructionHandler}>DESTROY!</button>
+      )}
+    </React.Fragment>
   );
+
+  if (destroyed) {
+    content = <h1>Total destruction!</h1>;
+  }
+  return content;
 }
 
 export default App;
