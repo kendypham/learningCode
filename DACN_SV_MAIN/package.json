@@ -42,7 +42,7 @@
     "mongo": "^0.1.0",
     "mongodb": "^2.2.26",
     "node-cmd": "^3.0.0",
-    "nodemailer": "^4.0.1",
+    "nodemailer": "^6.4.16",
     "paypal-rest-sdk": "^1.7.1",
     "promise-async": "^0.2.0",
     "rc": "~1.2.1",
