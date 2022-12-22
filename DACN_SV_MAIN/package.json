@@ -36,7 +36,7 @@
     "hat": "0.0.3",
     "include-all": "~4.0.3",
     "jsonfile": "^3.0.0",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.0",
     "mongo": "^0.1.0",
